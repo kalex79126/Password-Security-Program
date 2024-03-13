@@ -38,7 +38,7 @@ from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 from base64 import b64encode, b64decode
 from AESencrypt import AESCipher
-from salting import salt
+from salting import Salt
 from TOTP import TOTP
 from hashing import SHA256Hasher
 from UserData import UserManager
@@ -98,7 +98,7 @@ class PasswordSecurityManager:
         self.user_id = user_id
         self.common_passwords = common_passwords
         self.encryption = AESCipher()
-        self.salter = salt()
+        self.salter = Salt()
         self.totp = TOTP()
         self.hash = SHA256Hasher()
         self.user_manager = UserManager(data)
@@ -147,7 +147,7 @@ class PasswordSecurityManager:
     
     def hash_bytes(self, get_user_password_hash):
         # Hash bytes.
-        return self.hash.hash_bytes(get_user_password_hash)
+        return self.hash.hash_byte(get_user_password_hash)
         
     def hash_string(self, get_user_password):
         # Hash string.
